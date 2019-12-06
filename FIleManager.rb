@@ -1,6 +1,4 @@
-#List of files in directory
-#User may sort files
-require 'fileutils'
+#FILE MANAGER by @madolu2
 
 $path = Dir.pwd
 
