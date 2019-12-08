@@ -1,12 +1,12 @@
-#FILE MANAGER by @madolu2
+#List of files in directory
+#User may sort files
+require 'fileutils'
 
 $path = Dir.pwd
 
 def ListOfFiles
-  puts "
-TO LEAVE ENTER '<'
-WANNA SORT IT? y/n
-  "
+  puts "\nTO LEAVE PRESS '<'\n" \
+       "WANNA SORT IT? y/n\n\n"
   user_choice = gets.chomp
 
   if user_choice == 'y'
@@ -22,15 +22,13 @@ end
 def JumpTo
   while true
     if $path != nil
-      puts "
-  NOW U IN '#{$path}'"
+      puts "\nNOW U IN '#{$path}'\n"
     end
 
-    puts '
-  TO LEAVE ENTER "<"
-  ENTER SOURCE DIRECTORY
-  JUMP TO ROOT FOLDER? y/n
-  '
+    puts "\nTO LEAVE PRESS '<'\n" \
+         "ENTER SOURCE DIRECTORY\n" \
+         "JUMP TO ROOT FOLDER? y/n\n\n"
+
     user_choice = gets.chomp
 
     if user_choice == 'y'
@@ -44,11 +42,8 @@ def JumpTo
 end
 
 def DeleteByName
-  puts '
-TO LEAVE ENTER "<"
-ENTER FILE NAME
-
-'
+  puts "\nTO LEAVE PRESS '<'\n\
+  ENTER FILE NAME\n\n"
   file_name = gets.chomp
 
   if file_name == "<"
@@ -58,22 +53,15 @@ ENTER FILE NAME
   user_choice = $path + '/' + file_name
   begin
    File.delete(user_choice)
-   puts '
-DELETED
-'
+   puts "\nDELETED\n"
   rescue
-    puts '
-!ERROR - WRITE VALID FILE NAME!
-'
+    puts "\n!ERROR - WRITE VALID FILE NAME!\n"
   end
 end
 
 def DeleteByMask
-  puts '
-TO LEAVE ENTER "<"
-ENTER MASK
-
-'
+  puts "\nTO LEAVE PRESS '<'\n" \
+        "ENTER MASK\n\n"
   user_choice = gets.chomp
 
   if user_choice == "<"
@@ -83,16 +71,11 @@ ENTER MASK
   destination_dir = $path + '/' + user_choice
 
   File.delete(*Dir.glob(destination_dir))
-  puts '
-DELETED
-'
 end
 
 def CreateFile
-  puts "
-TO LEAVE ENTER '<'
-ENTER FILE NAME
-"
+  puts "\nTO LEAVE PRESS '<'\n" \
+       "ENTER FILE NAME\n\n"
   user_choice = gets.chomp
 
   if user_choice == "<"
@@ -101,26 +84,24 @@ ENTER FILE NAME
 
   if user_choice != nil
     File.open(user_choice, 'w')
-    puts "
-FILE #{user_choice} WAS CREATED
-"
+    puts "\nFILE #{user_choice} WAS CREATED\n"
   end
   return nil
 end
 
 def CopyFile
-  puts "
-TO LEAVE ENTER '<'
-ENTER FILE NAME
-  "
+  puts "\nTO LEAVE PRESS '<'\n" \
+       "ENTER FILE NAME\n\n"
 
   file_name = gets.chomp
   user_choice = $path + '/' + file_name
 
-  puts "
-ENTER DESTINATION DIR
-STAY '#{$path}'? y/n
-  "
+  if file_name == "<"
+    return nil
+  end
+
+  puts "\nENTER DESTINATION DIR\n" \
+       "STAY '#{$path}'? y/n\n\n"
 
   destination_dir = gets.chomp
 
@@ -133,27 +114,25 @@ STAY '#{$path}'? y/n
   File.open(destination_dir, 'w')
 
   File.foreach(user_choice) do |line|
-    File.foreach(destination_dir) do |dline|
-      dline = line
+    File.open(destination_dir, 'a') do |file|
+      file.puts line
     end
   end
 end
 
-puts 'HELLO THERE
-IT`S FILE MANAGER'
+puts "\nHELLO THERE\n" \
+     "IT`S FILE MANAGER\n"
 
 while true
   puts "
-  NOW U IN '#{$path}'"
-  puts '
-  WHAT WE GONNA DO?
-  1.LIST OF FILES IN DIR
-  2.JUMP TO DIR
-  3.DELETE FILE BY NAME
-  4.DELETE FILE BY MASK
-  5.CREATE FILE
-  6.COPY FILE
-  '
+  NOW U IN '#{$path}'\n
+  WHAT WE GONNA DO?\n\
+  1.LIST OF FILES IN DIR\n\
+  2.JUMP TO DIR\n\
+  3.DELETE FILE BY NAME\n\
+  4.DELETE FILE BY MASK\n\
+  5.CREATE FILE\n\
+  6.COPY FILE\n\n"
   user_choice = gets.chomp.to_i
 
   case user_choice
