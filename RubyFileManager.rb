@@ -5,18 +5,7 @@ require 'fileutils'
 $path = Dir.pwd
 
 def ListOfFiles
-  puts "\nTO LEAVE PRESS '<'\n" \
-       "WANNA SORT IT? y/n\n\n"
-  user_choice = gets.chomp
-
-  if user_choice == 'y'
-    puts Dir.entries($path).sort
-  elsif user_choice == '<'
-    return nil
-  else
-    puts Dir.entries($path)
-  end
-  return nil
+  puts Dir.entries($path).sort
 end
 
 def JumpTo
@@ -26,19 +15,28 @@ def JumpTo
     end
 
     puts "\nTO LEAVE PRESS '<'\n" \
-         "ENTER SOURCE DIRECTORY\n" \
-         "JUMP TO ROOT FOLDER? y/n\n\n"
+    	 "TO SEE LIST OF FILES PRESS 'l'\n" \
+    	 "TO JUMP ON FOLDER BACK PRESS 'j'\n" \
+         "TO JUMP TO ROOT FOLDER PRESS 'r'\n" \
+         "ENTER SOURCE DIRECTORY\n\n"
 
     user_choice = gets.chomp
 
-    if user_choice == 'y'
-      $path = '/'
-    elsif user_choice == '<'
+    case user_choice
+    when 'j'
+      $path.replace($path.slice(0..($path.rindex('/') - 1)))
+    when 'r'
+      $path.replace('/')
+    when '<'
       return nil
-    elsif user_choice[0] == '+'
-      $path += '/' + user_choice.delete('+')
+    when 'l'
+      ListOfFiles()
     else
-      $path = user_choice + '/'
+      if user_choice[0] == '+'
+        $path.replace($path + '/' + user_choice.delete('+'))
+      else
+        $path.replace(user_choice + '/')
+      end 	
     end
   end
 end
