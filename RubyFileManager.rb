@@ -15,8 +15,8 @@ def JumpTo
     end
 
     puts "\nTO LEAVE PRESS '<'\n" \
-    	   "TO SEE LIST OF FILES PRESS 'l'\n" \
-    	   "TO JUMP ON FOLDER BACK PRESS 'j'\n" \
+    	  "TO SEE LIST OF FILES PRESS 'l'\n" \
+    	  "TO JUMP ON FOLDER BACK PRESS 'j'\n" \
          "TO JUMP TO ROOT FOLDER PRESS 'r'\n" \
          "U CAN ENTER '+NAME_DIR'\n" \
          "ENTER SOURCE DIRECTORY\n\n"
