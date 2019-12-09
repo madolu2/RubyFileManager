@@ -33,8 +33,10 @@ def JumpTo
 
     if user_choice == 'y'
       $path = '/'
-    elsif user_choice == "<"
+    elsif user_choice == '<'
       return nil
+    elsif user_choice[0] == '+'
+      $path += '/' + user_choice.delete('+')
     else
       $path = user_choice + '/'
     end
@@ -82,8 +84,10 @@ def CreateFile
     return nil
   end
 
+  destination_dir = $path + '/'+ user_choice
+
   if user_choice != nil
-    File.open(user_choice, 'w')
+    File.open(destination_dir, 'w')
     puts "\nFILE #{user_choice} WAS CREATED\n"
   end
   return nil
